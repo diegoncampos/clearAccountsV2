@@ -1,0 +1,7 @@
+{
+  "name": "clearAccountsV2",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
