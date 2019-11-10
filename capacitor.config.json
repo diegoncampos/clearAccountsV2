@@ -3,5 +3,6 @@
   "appName": "clearAccountsV2",
   "bundledWebRuntime": false,
   "npmClient": "npm",
-  "webDir": "www"
+  "webDir": "www",
+  "linuxAndroidStudioPath": "/home/diego/android-studio/bin/studio.sh"
 }

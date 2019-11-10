@@ -1,0 +1,7 @@
+{
+  "appId": "com.clearAccountV2.app",
+  "appName": "clearAccountsV2",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www"
+}
