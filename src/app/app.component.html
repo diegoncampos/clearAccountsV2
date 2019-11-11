@@ -2,7 +2,7 @@
   <ion-split-pane>
     <ion-menu type="overlay">
       <ion-header>
-        <ion-toolbar>
+        <ion-toolbar color="primary">
           <ion-title>Menu</ion-title>
         </ion-toolbar>
       </ion-header>
@@ -16,6 +16,14 @@
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
+              <ion-item (click)="onLogOut()">
+                <ion-icon slot="start" name="exit"></ion-icon>
+                <ion-label>
+                  Log Out
+                </ion-label>
+              </ion-item>
+            </ion-menu-toggle>
         </ion-list>
       </ion-content>
     </ion-menu>
