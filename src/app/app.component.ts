@@ -15,14 +15,14 @@ import { AuthService } from './services/auth.service';
 export class AppComponent {
   public appPages = [
     {
-      title: 'Home',
+      title: 'Groups',
       url: '/home',
-      icon: 'home'
+      icon: 'list'
     },
     {
-      title: 'List',
-      url: '/list',
-      icon: 'list'
+      title: 'Profile',
+      url: '/home',
+      icon: 'person'
     }
   ];
 
