@@ -1,7 +1,8 @@
 {
-  "appId": "com.clearAccountV2.app",
-  "appName": "clearAccountsV2",
+  "appId": "io.ionic.starter",
+  "appName": "CAV2",
   "bundledWebRuntime": false,
   "npmClient": "npm",
-  "webDir": "www"
+  "webDir": "www",
+  "linuxAndroidStudioPath": "/home/diego/android-studio/bin/studio.sh"
 }

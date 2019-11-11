@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">clearAccountsV2</string>
-    <string name="title_activity_main">clearAccountsV2</string>
+    <string name="app_name">ClearAccounts</string>
+    <string name="title_activity_main">ClearAccount_V2</string>
     <string name="package_name">com.clearAccountV2.app</string>
     <string name="fileprovider_authority">com.clearAccountV2.app.fileprovider</string>
     <string name="custom_url_scheme">com.clearAccountV2.app</string>

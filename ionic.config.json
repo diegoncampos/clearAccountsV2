@@ -1,5 +1,5 @@
 {
-  "name": "clearAccountsV2",
+  "name": "ClearAccounts",
   "integrations": {
     "capacitor": {}
   },
