@@ -1,24 +1,25 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>User Login</ion-title>
+    <ion-title text-center>User Login</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
+  <ion-img class="icon" src="assets/icon.png"></ion-img>
   <ion-item>
-    <ion-label>
+    <ion-label position="floating">
       Email
     </ion-label>
     <ion-input type="text" [(ngModel)]="user.email"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label>
+    <ion-label position="floating">
       Password
     </ion-label>
     <ion-input type="password" [(ngModel)]="user.password"></ion-input>
   </ion-item>
-  <ion-item-divider>
-    <ion-button size="large" (click)="onLogin()">Login</ion-button>
-    <ion-button size="large" routerLink= "/register">New User</ion-button>
-  </ion-item-divider>
+  <!-- <ion-item-divider> -->
+    <ion-button expand="block" (click)="onLogin()">Login</ion-button>
+    <ion-button expand="block" routerLink= "/register">New User</ion-button>
+  <!-- </ion-item-divider> -->
 </ion-content>
