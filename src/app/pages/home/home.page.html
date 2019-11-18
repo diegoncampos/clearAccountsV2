@@ -12,13 +12,13 @@
     <ion-card *ngFor="let user of user.groups">
       <ion-item>
         <ion-icon name="arrow-forward" slot="start"></ion-icon>
-        <ion-label>{{user}}</ion-label>
+        <ion-label>{{user.name}}</ion-label>
       </ion-item>
     </ion-card>
 
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
       <ion-fab-button>
-        <ion-icon name="add"></ion-icon>
+        <ion-icon name="add" routerLink="/new-group"></ion-icon>
       </ion-fab-button>
     </ion-fab>
 

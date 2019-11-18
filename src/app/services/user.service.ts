@@ -25,5 +25,10 @@ export class UserService {
     return this.afs.collection('users').doc(id).snapshotChanges();
   }
 
+  getUserByEmail(email: string) {
+    const usersCollection = this.afs.collection<any>('users', ref => ref.where('userEmail', '==', email));
+    return usersCollection.snapshotChanges();
+  }
+
 
 }
