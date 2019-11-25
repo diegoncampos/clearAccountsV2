@@ -21,7 +21,7 @@ export class LoginPage implements OnInit {
     const user = await this.authService.onLogin(this.user);
     if (user){
       console.log("Login succesfuly!");
-      this.router.navigateByUrl('/');
+      this.router.navigateByUrl('/home');
     }
   }
 

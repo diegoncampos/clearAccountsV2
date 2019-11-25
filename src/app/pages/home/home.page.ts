@@ -19,11 +19,19 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
+    // this.getUsersGroups();
+  }
+
+  ionViewWillEnter() {
+    this.user.groups = [];
+    this.getUsersGroups();
+  }
+
+  getUsersGroups() {
     this.afAuth.authState.subscribe(user =>{
       if (user) {
         this.userService.getUser(user.uid).subscribe((res: any) => {
           this.user.userName = res.payload.data().userName;
-          // console.log("User Data: ", res.payload.data().userName)
           this.groupService.getGroupsByEmail(this.user.userName, this.user.userEmail).subscribe(res => {
             res.docs.forEach(doc => {
               console.log("Aca:", doc.data())
