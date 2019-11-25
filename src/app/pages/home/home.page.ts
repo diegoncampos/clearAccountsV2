@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth'
 import { UserService } from '../../services/user.service'
 import { GroupService } from '../../services/group.service'
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,8 @@ export class HomePage implements OnInit {
   constructor(
     public afAuth:AngularFireAuth,
     private userService: UserService,
-    private groupService: GroupService
+    private groupService: GroupService,
+    private router: Router
     ) {
   }
 
@@ -34,8 +36,9 @@ export class HomePage implements OnInit {
           this.user.userName = res.payload.data().userName;
           this.groupService.getGroupsByEmail(this.user.userName, this.user.userEmail).subscribe(res => {
             res.docs.forEach(doc => {
-              console.log("Aca:", doc.data())
-              this.user.groups.push(doc.data())
+              let group = doc.data();
+              group.id = doc.id;
+              this.user.groups.push(group)
             })
           })
         });
@@ -51,6 +54,15 @@ export class HomePage implements OnInit {
         // })
       }
     });
+  }
+
+  goToPurchase(group: any) {
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        special: JSON.stringify(group)
+      }
+    };
+    this.router.navigate(['purchases'], navigationExtras);
   }
 
 }

@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{groupData.name}}'s Purchases</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-img class="trolly" src="assets/img_trolly.png"></ion-img>
+
+  <ion-card *ngFor="let purchase of purchases">
+    <ion-item>
+      <ion-icon name="basket" slot="start"></ion-icon>
+      <ion-label>{{purchase.name}}</ion-label>
+    </ion-item>
+  </ion-card>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <!-- <ion-fab-button> -->
+      <!-- <ion-icon name="add" routerLink="/new-group"></ion-icon> -->
+      <ion-img class="buy" routerLink="/new-group" src="assets/buy_now.png"></ion-img>
+    <!-- </ion-fab-button> -->
+  </ion-fab>
+
+</ion-content>

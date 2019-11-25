@@ -9,10 +9,10 @@
 
 <ion-content>
     <ion-img class="icon" src="assets/png-grupo-8.png"></ion-img>
-    <ion-card *ngFor="let user of user.groups">
+    <ion-card *ngFor="let group of user.groups">
       <ion-item>
         <ion-icon name="arrow-forward" slot="start"></ion-icon>
-        <ion-label>{{user.name}}</ion-label>
+        <ion-label (click)="goToPurchase(group)">{{group.name}}</ion-label>
       </ion-item>
     </ion-card>
 
