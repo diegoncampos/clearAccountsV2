@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user.model'
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,11 @@ export class LoginPage implements OnInit {
 
   user: User = new User();
 
-  constructor(private authService:AuthService, private router:Router) { }
+  constructor(
+    private authService:AuthService,
+    private router:Router,
+    public toastController: ToastController,
+    ) { }
 
   ngOnInit() {
   }
@@ -23,6 +28,17 @@ export class LoginPage implements OnInit {
       console.log("Login succesfuly!");
       this.router.navigateByUrl('/home');
     }
+    else {
+      this.presentToast("Wrong password or email");
+    }
+  }
+
+  async presentToast(message) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000
+    });
+    toast.present();
   }
 
 }

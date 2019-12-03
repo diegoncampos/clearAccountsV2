@@ -2,11 +2,14 @@
   <ion-split-pane>
     <ion-menu type="overlay">
       <ion-header>
-        <ion-toolbar color="primary">
+        <!-- <ion-toolbar color="primary">
           <ion-title>Menu</ion-title>
-        </ion-toolbar>
+        </ion-toolbar> -->
+        <ion-img class="profile" src="assets/profile_photo.png"></ion-img>
+        <ion-label class="userName">{{userInfo.name}}</ion-label>
+        <ion-label class="userEmail">{{userInfo.email}}</ion-label>
       </ion-header>
-      <ion-content>
+      <ion-content fullscreen>
         <ion-list>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
             <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">

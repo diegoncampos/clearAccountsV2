@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { User } from '../models/user.model';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AuthService } from '../services/auth.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +11,13 @@ export class UserService {
 
   usersCollectionRef: any = null;
   currentUserId: string = null;
+  public userInfo: string;
+  public observableUserInfo: BehaviorSubject<any>;
 
   constructor(private authService:AuthService, private afs: AngularFirestore) {
     // this.user = this.authService.isLogged ? this.authService.isLogged : null;
     // this.usersCollectionRef= this.afs.collection('users');
+    this.observableUserInfo = new BehaviorSubject<any>(this.userInfo);
   }
 
   newUser(id: string, user: any){
@@ -22,7 +26,13 @@ export class UserService {
   }
 
   getUser(id) {
-    return this.afs.collection('users').doc(id).snapshotChanges();
+    let user = this.afs.collection('users').doc(id).snapshotChanges();
+    user.subscribe( (userInfo: any) => {
+      this.userInfo = userInfo.payload.data();
+      this.observableUserInfo.next(this.userInfo);
+      // console.log("USERRRR:", userInfo.payload.data().userName)
+    });
+    return user;
   }
 
   getUserByEmail(email: string) {
