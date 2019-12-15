@@ -18,10 +18,10 @@
   </ion-card>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <!-- <ion-fab-button> -->
-      <!-- <ion-icon name="add" routerLink="/new-group"></ion-icon> -->
-      <ion-img class="buy" routerLink="/new-group" src="assets/buy_now.png"></ion-img>
-    <!-- </ion-fab-button> -->
+      <!-- <ion-img class="buy" (click)="goToNewPurchase()" src="assets/buy_now.png"></ion-img> -->
+      <ion-fab-button>
+          <ion-icon name="add" (click)="goToNewPurchase()"></ion-icon>
+        </ion-fab-button>
   </ion-fab>
 
 </ion-content>

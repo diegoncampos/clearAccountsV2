@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-purchases',
@@ -24,6 +24,15 @@ export class PurchasesPage implements OnInit {
     }
 
   ngOnInit() {
+  }
+
+  goToNewPurchase() {
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        special: JSON.stringify(this.groupData)
+      }
+    };
+    this.router.navigate(['new-purchase'], navigationExtras);
   }
 
 }
