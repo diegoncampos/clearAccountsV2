@@ -4,6 +4,7 @@ import { UserService } from '../../services/user.service'
 import { GroupService } from '../../services/group.service'
 import { NavigationExtras, Router } from '@angular/router';
 import { Platform } from '@ionic/angular';
+import { LocalStorageService } from '../../services/local-storage.service'
 
 @Component({
   selector: 'app-home',
@@ -18,7 +19,8 @@ export class HomePage implements OnInit {
     private userService: UserService,
     private groupService: GroupService,
     private router: Router,
-    private platform: Platform
+    private platform: Platform,
+    private localStorageService: LocalStorageService
     ) {
   }
 
@@ -42,6 +44,7 @@ export class HomePage implements OnInit {
               group.id = doc.id;
               this.user.groups.push(group)
             })
+            this.localStorageService.setObject("userInfo", this.user)
           })
         });
 
