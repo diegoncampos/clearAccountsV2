@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user.model'
 import { ToastController } from '@ionic/angular';
+import { NotificationsService } from '../../services/notifications.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ export class LoginPage implements OnInit {
   constructor(
     private authService:AuthService,
     private router:Router,
-    public toastController: ToastController,
+    private notificationsService: NotificationsService
     ) { }
 
   ngOnInit() {
@@ -29,16 +30,8 @@ export class LoginPage implements OnInit {
       this.router.navigateByUrl('/home');
     }
     else {
-      this.presentToast("Wrong password or email");
+      this.notificationsService.showMessage("Wrong password or email");
     }
-  }
-
-  async presentToast(message) {
-    const toast = await this.toastController.create({
-      message: message,
-      duration: 2000
-    });
-    toast.present();
   }
 
 }

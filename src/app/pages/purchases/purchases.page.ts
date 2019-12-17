@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
+import { PurchaseService } from '../../services/purchase.service'
+import { Purchase } from '../../models/purchase.model';
 
 @Component({
   selector: 'app-purchases',
@@ -9,11 +11,13 @@ import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 export class PurchasesPage implements OnInit {
 
   public groupData: any;
-  public purchases: any = [{name: "compra 1"}, {name: "compra 2"}, {name: "compra 3"}, {name: "compra 4"}, {name: "compra 5"}, {name: "compra 6"}, {name: "compra 7"}, {name: "compra 8"}, {name: "compra 9"}, {name: "compra 10"}];
+  public purchases: Purchase;
+  public showDescription: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private purchaseService: PurchaseService
     ) {
       this.route.queryParams.subscribe(params => {
         if (params && params.special) {
@@ -26,6 +30,10 @@ export class PurchasesPage implements OnInit {
   ngOnInit() {
   }
 
+  ionViewWillEnter() {
+    this.getGroupPurchases();
+  }
+
   goToNewPurchase() {
     let navigationExtras: NavigationExtras = {
       queryParams: {
@@ -33,6 +41,15 @@ export class PurchasesPage implements OnInit {
       }
     };
     this.router.navigate(['new-purchase'], navigationExtras);
+  }
+
+  getGroupPurchases() {
+    this.purchaseService.getPurchasesByGroupId(this.groupData.id).subscribe((res: any) => {
+      if (res) {
+        console.log("Purcheases: ", res)
+        this.purchases = res;
+      }
+    });
   }
 
 }

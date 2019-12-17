@@ -12,9 +12,9 @@ export class PurchaseService {
     return this.afs.collection('purchases').add(purchase);
   }
 
-  getPurchasesByGroupId(groupId: any) {
-    const usersCollection = this.afs.collection<any>('purchases', ref => ref.where('groupId', '==', groupId));
-    return usersCollection.get();
+  getPurchasesByGroupId(groupId: string) {
+    const purchaseCollection = this.afs.collection<any>('purchases', ref => ref.where('groupId', '==', groupId)).valueChanges();
+    return purchaseCollection;
   }
 
 }

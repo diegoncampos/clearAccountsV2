@@ -29,7 +29,7 @@
     </ion-item>
     <ion-card *ngIf="!allParticipants">
       <ion-list>
-        <ion-item *ngFor="let participant of fixedParticipants">
+        <ion-item *ngFor="let participant of groupData.participants">
           <ion-label>{{participant.name}}</ion-label>
           <ion-toggle slot="end" [(ngModel)]="participant.isChecked" color="primary" checked></ion-toggle>
         </ion-item>

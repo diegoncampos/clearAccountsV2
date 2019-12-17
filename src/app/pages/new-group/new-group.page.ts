@@ -4,6 +4,7 @@ import { UserService } from '../../services/user.service'
 import { GroupService } from '../../services/group.service'
 import { ToastController } from '@ionic/angular';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { NotificationsService } from '../../services/notifications.service';
 
 @Component({
   selector: 'app-new-group',
@@ -20,7 +21,8 @@ export class NewGroupPage implements OnInit {
     private userService: UserService,
     public toastController: ToastController,
     public groupService: GroupService,
-    public afAuth:AngularFireAuth
+    public afAuth:AngularFireAuth,
+    private notificationsService: NotificationsService
     ) { }
 
   ngOnInit() {
@@ -65,7 +67,9 @@ export class NewGroupPage implements OnInit {
   }
 
   save(){
-    this.groupService.newGoup({name: this.groupName, participants: this.friends}).then(res => {console.log("Group saved!", res)}, err => {console.log("Fail saving group")});
+    this.groupService.newGoup({name: this.groupName, participants: this.friends}).then(res => {
+      this.notificationsService.showMessage("Group saved!")
+    }, err => {this.notificationsService.showMessage("Fail saving group")});
     this.router.navigate(['/home']);
   }
 

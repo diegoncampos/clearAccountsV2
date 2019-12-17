@@ -13,8 +13,26 @@
   <ion-card *ngFor="let purchase of purchases">
     <ion-item>
       <ion-icon name="basket" slot="start"></ion-icon>
-      <ion-label>{{purchase.name}}</ion-label>
+      <ion-label (click)="purchase.showDescription = !purchase.showDescription">{{purchase.description}}</ion-label>
+      <!-- <ion-item *ngIf="showDescription" >
+      </ion-item> -->
     </ion-item>
+    <div *ngIf="purchase.showDescription">
+        <ion-card>
+          <ion-card-content>
+            <ion-item>
+              <ion-label>
+                Date: {{purchase.date | date: 'dd MMM yyyy'}}
+              </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>
+                Spent: ${{purchase.spent}}
+              </ion-label>
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+      </div>
   </ion-card>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
