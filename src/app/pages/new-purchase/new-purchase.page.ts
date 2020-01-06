@@ -16,6 +16,7 @@ export class NewPurchasePage implements OnInit {
 
   public newPurchease: any = {description:"", spent: null, paidBy: "", participants: []};
   public groupData: any;
+  public payBy: any = {userName: "User"};
   public fixedParticipants: any = [];
   public allParticipants: boolean = true;
   public guests: string[] = [];
@@ -31,6 +32,7 @@ export class NewPurchasePage implements OnInit {
       if (params && params.special) {
         this.groupData = JSON.parse(params.special);
         this.fixedParticipants = this.groupData.participants;
+        console.log("GroupData: ", this.groupData)
         // Is checked true for all participants
         this.fixedParticipants.forEach(element => {
           element.isChecked = true;
@@ -38,22 +40,26 @@ export class NewPurchasePage implements OnInit {
         // this.fixParticipants(this.groupData.participants);
       }
     });
+    this.localStorageService.getItem("userInfo").then(info => {
+      // console.log("User info: ", info);
+      this.payBy = info;
+    })
   }
 
   ngOnInit() {
   }
 
   // This function remove the current user from the group participants list
-  async fixParticipants(participants) {
-    await this.localStorageService.getObject('userInfo').then(result => {
-      participants.forEach((element, i) => {
-        if (element.name === 'Diego') {
-          participants.splice(i, 1);
-        }
-      });
-      this.fixedParticipants = participants;
-    });
-  }
+  // async fixParticipants(participants) {
+  //   await this.localStorageService.getObject('userInfo').then(result => {
+  //     participants.forEach((element, i) => {
+  //       if (element.name === 'Diego') {
+  //         participants.splice(i, 1);
+  //       }
+  //     });
+  //     this.fixedParticipants = participants;
+  //   });
+  // }
 
   save() {
     let participants = this.getParticipants(this.fixedParticipants);

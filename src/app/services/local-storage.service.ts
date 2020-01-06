@@ -30,8 +30,8 @@ export class LocalStorageService {
 
   async getItem(key:string) {
     const { value } = await Storage.get({ key: key });
-    console.log('Got item: ', value);
-    return value;
+    // console.log('Got item: ', JSON.parse(value));
+    return JSON.parse(value);
   }
 
   async removeItem(key:string) {
