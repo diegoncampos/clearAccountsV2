@@ -1,12 +1,13 @@
 {
   "name": "clear_accounts_v2",
-  "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "version": "2.0.1",
+  "author": "Diego Campos",
+  "homepage": "https://diegocampos.me/",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ionic build && npx cap copy android && npx cap open android",
+    "buildProd": "ionic build --prod && npx cap copy android && npx cap open android",
     "update": "ionic build && npx cap copy android",
     "test": "ng test",
     "lint": "ng lint",

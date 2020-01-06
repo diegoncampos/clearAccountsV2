@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user.model'
-import { ToastController } from '@ionic/angular';
 import { NotificationsService } from '../../services/notifications.service';
 
 @Component({
@@ -13,6 +12,7 @@ import { NotificationsService } from '../../services/notifications.service';
 export class LoginPage implements OnInit {
 
   user: User = new User();
+  public showIcon: string = "eye";
 
   constructor(
     private authService:AuthService,
@@ -33,5 +33,10 @@ export class LoginPage implements OnInit {
       this.notificationsService.showMessage("Wrong password or email");
     }
   }
+
+  showPassword(input: any): any {
+    input.type = input.type === 'password' ?  'text' : 'password';
+    this.showIcon = this.showIcon === "eye" ? "eye-off" : "eye";
+   }
 
 }
