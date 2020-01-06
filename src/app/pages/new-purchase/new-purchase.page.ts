@@ -14,10 +14,11 @@ import { NotificationsService } from '../../services/notifications.service';
 })
 export class NewPurchasePage implements OnInit {
 
-  public newPurchease: any = {description:"", spent: 0, paidBy: "", participants: []};
+  public newPurchease: any = {description:"", spent: null, paidBy: "", participants: []};
   public groupData: any;
   public fixedParticipants: any = [];
   public allParticipants: boolean = true;
+  public guests: string[] = [];
 
   constructor(
     private router: Router,
@@ -79,6 +80,10 @@ export class NewPurchasePage implements OnInit {
     part.forEach((element) => {
       delete element.isChecked;
     });
+    // Add guests list to participants list
+    this.guests.forEach((element) => {
+      part.push({name: element, email: "Guest"})
+    });
     return part;
   }
 
@@ -88,6 +93,13 @@ export class NewPurchasePage implements OnInit {
       element.owe = eo;
     })
     return participants;
+  }
+
+  addGuest(guest: any) {
+    if(guest.value !== "") {
+      this.guests.push(guest.value);
+      guest.value = "";
+    }
   }
 
 }

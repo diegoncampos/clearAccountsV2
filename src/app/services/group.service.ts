@@ -12,6 +12,10 @@ export class GroupService {
     return this.afs.collection('groups').add(group);
   }
 
+  editGoup(id: string, group: any):any{
+    return this.afs.collection('groups').doc(id).set(group);
+  }
+
   getGoup(id) {
     return this.afs.collection('groups').doc(id).snapshotChanges();
   }

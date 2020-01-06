@@ -11,10 +11,11 @@
     <ion-img class="icon" src="assets/png-grupo-8.png"></ion-img>
     <ion-card *ngFor="let group of user.groups">
       <ion-item>
-        <ion-icon name="arrow-forward" slot="start"></ion-icon>
-        <ion-label (click)="goToPurchase(group)">{{group.name}}</ion-label>
+        <ion-icon name="people" slot="start"></ion-icon>
+        <ion-label (click)="goToPurchase(group)" (press)="editGroup(group)">{{group.name}}</ion-label>
       </ion-item>
     </ion-card>
+    <ion-label class="longPress">Long press to edit group.</ion-label>
 
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
       <ion-fab-button>

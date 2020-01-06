@@ -5,9 +5,18 @@
     margin-right: auto;
     margin-top: 10px;
 }
-
 .buy {
     width: 45%;
     float: right;
     display: block;
+}
+.purchaseDetailsTitle {
+    font-weight: bold;
+    #spent {
+        display: contents;
+    }
+}
+.guestEmail {
+    font-style: oblique;
+    color: darkgray;
 }

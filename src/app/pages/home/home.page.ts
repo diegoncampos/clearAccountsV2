@@ -3,7 +3,6 @@ import { AngularFireAuth } from '@angular/fire/auth'
 import { UserService } from '../../services/user.service'
 import { GroupService } from '../../services/group.service'
 import { NavigationExtras, Router } from '@angular/router';
-import { Platform } from '@ionic/angular';
 import { LocalStorageService } from '../../services/local-storage.service'
 
 @Component({
@@ -19,7 +18,6 @@ export class HomePage implements OnInit {
     private userService: UserService,
     private groupService: GroupService,
     private router: Router,
-    private platform: Platform,
     private localStorageService: LocalStorageService
     ) {
   }
@@ -60,6 +58,15 @@ export class HomePage implements OnInit {
       }
     };
     this.router.navigate(['purchases'], navigationExtras);
+  }
+
+  editGroup(group: any) {
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        group: JSON.stringify(group)
+      }
+    };
+    this.router.navigate(['new-group'], navigationExtras);
   }
 
 }
