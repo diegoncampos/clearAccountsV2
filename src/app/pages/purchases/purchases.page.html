@@ -18,7 +18,7 @@
       </ion-item> -->
     </ion-item>
     <div *ngIf="purchase.showDescription">
-        <ion-card>
+        <ion-card id="capture">
           <ion-card-header>
             <ion-card-subtitle>
                 <ion-label>
@@ -32,15 +32,12 @@
           </ion-card-header>
           <ion-card-content>
             <ion-item *ngFor="let guest of purchase.participants">
-              <ion-label>{{guest.name}} <span class="guestEmail">({{guest.email}})</span> - Owe: {{guest.owe | number:'1.0-2'}}</ion-label>
+              <ion-label>{{guest.name}} <span class="guestEmail">({{guest.email}})</span> - Owe: {{guest.owe | number:'1.0-2'}}
+              </ion-label>
             </ion-item>
-            <!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed" color="primary" class="share">
-              <ion-fab-button> -->
-                <ion-icon class="share" name="share" color="primary"></ion-icon>
-              <!-- </ion-fab-button>
-            </ion-fab> -->
-          </ion-card-content>
-        </ion-card>
+            <ion-icon class="share" name="share" color="primary" (click)="shareList()"></ion-icon>
+            </ion-card-content>
+            </ion-card>
       </div>
   </ion-card>
 

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { PurchaseService } from '../../services/purchase.service'
 import { Purchase } from '../../models/purchase.model';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-purchases',
@@ -17,7 +19,8 @@ export class PurchasesPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private purchaseService: PurchaseService
+    private purchaseService: PurchaseService,
+    private socialSharing: SocialSharing
     ) {
       this.route.queryParams.subscribe(params => {
         if (params && params.special) {
@@ -47,6 +50,19 @@ export class PurchasesPage implements OnInit {
       if (res) {
         this.purchases = res;
       }
+    });
+  }
+
+  // Share is not working... ToDo check!
+  shareList() {
+    html2canvas(document.querySelector("#capture")).then((canvas) => {
+      let message = "CLEAR ACCOUNTS!! Event: ";
+      this.socialSharing.shareViaWhatsApp(message, canvas.toDataURL(), null)
+      .then(() => {
+          console.log("shareViaWhatsApp: Success");
+        }).catch(() => {
+          console.error("shareViaWhatsApp: failed");
+        });
     });
   }
 

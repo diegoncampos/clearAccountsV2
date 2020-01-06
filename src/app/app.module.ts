@@ -12,6 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule, AngularFireAuth } from '@angular/fire/auth'
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { SocialSharing} from '@ionic-native/social-sharing/ngx';
 
 import { environment } from '../environments/environment'
 @NgModule({
@@ -28,7 +29,8 @@ import { environment } from '../environments/environment'
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    SocialSharing
   ],
   bootstrap: [AppComponent]
 })
