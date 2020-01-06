@@ -10,13 +10,16 @@
     float: right;
     display: block;
 }
-.purchaseDetailsTitle {
-    font-weight: bold;
-    #spent {
-        display: contents;
-    }
+.spent {
+    float: right;
 }
 .guestEmail {
     font-style: oblique;
     color: darkgray;
+}
+.share {
+    margin: 8px;
+    width: 30px;
+    height: 30px;
+    float: right;
 }

@@ -22,7 +22,6 @@ export class PurchasesPage implements OnInit {
       this.route.queryParams.subscribe(params => {
         if (params && params.special) {
           this.groupData = JSON.parse(params.special);
-          console.log("Traigo: ", this.groupData)
         }
       });
     }
@@ -46,7 +45,6 @@ export class PurchasesPage implements OnInit {
   getGroupPurchases() {
     this.purchaseService.getPurchasesByGroupId(this.groupData.id).subscribe((res: any) => {
       if (res) {
-        console.log("Purcheases: ", res)
         this.purchases = res;
       }
     });
