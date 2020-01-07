@@ -14,10 +14,12 @@ import { AngularFireAuthModule, AngularFireAuth } from '@angular/fire/auth'
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { SocialSharing} from '@ionic-native/social-sharing/ngx';
 
+import { SelectFromListPage } from './pages/modals/select-from-list/select-from-list.page'
+
 import { environment } from '../environments/environment'
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [AppComponent, SelectFromListPage],
+  entryComponents: [SelectFromListPage],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),

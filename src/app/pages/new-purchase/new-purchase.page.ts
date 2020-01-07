@@ -1,11 +1,13 @@
-import { element } from 'protractor';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PurchaseService } from '../../services/purchase.service'
 
 import { LocalStorageService } from '../../services/local-storage.service';
 import { Purchase } from '../../models/purchase.model';
 import { NotificationsService } from '../../services/notifications.service';
+
+import { SelectFromListPage } from '../modals/select-from-list/select-from-list.page'
+import { ModalController, IonInput } from '@ionic/angular';
 
 @Component({
   selector: 'app-new-purchase',
@@ -21,12 +23,15 @@ export class NewPurchasePage implements OnInit {
   public allParticipants: boolean = true;
   public guests: string[] = [];
 
+  @ViewChild('guest', {  static: false })  guestElement: IonInput;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private localStorageService: LocalStorageService,
     private purchaseService: PurchaseService,
-    private notificationsService: NotificationsService
+    private notificationsService: NotificationsService,
+    private modalController: ModalController
     ) {
     this.route.queryParams.subscribe(params => {
       if (params && params.special) {
@@ -37,29 +42,15 @@ export class NewPurchasePage implements OnInit {
         this.fixedParticipants.forEach(element => {
           element.isChecked = true;
         });
-        // this.fixParticipants(this.groupData.participants);
       }
     });
-    this.localStorageService.getItem("userInfo").then(info => {
-      // console.log("User info: ", info);
-      this.payBy = info;
+    this.localStorageService.getItem("userInfo").then(userInfo => {
+      this.payBy = userInfo;
     })
   }
 
   ngOnInit() {
   }
-
-  // This function remove the current user from the group participants list
-  // async fixParticipants(participants) {
-  //   await this.localStorageService.getObject('userInfo').then(result => {
-  //     participants.forEach((element, i) => {
-  //       if (element.name === 'Diego') {
-  //         participants.splice(i, 1);
-  //       }
-  //     });
-  //     this.fixedParticipants = participants;
-  //   });
-  // }
 
   save() {
     let participants = this.getParticipants(this.fixedParticipants);
@@ -94,9 +85,12 @@ export class NewPurchasePage implements OnInit {
   }
 
   payDivider(participants: any[]) {
-    let eo = this.newPurchease.spent / participants.length;
+    let eo = (this.newPurchease.spent / participants.length) * -1;
     participants.forEach(element => {
       element.owe = eo;
+      if(element.email === this.payBy.userEmail){
+        element.owe = element.owe + this.newPurchease.spent;
+      }
     })
     return participants;
   }
@@ -106,6 +100,29 @@ export class NewPurchasePage implements OnInit {
       this.guests.push(guest.value);
       guest.value = "";
     }
+    // Set focus on guest input if it's empty
+    else {
+      this.guestElement.setFocus();
+    }
   }
+
+  async openModal() {
+    const modal = await this.modalController.create({
+      component: SelectFromListPage,
+      componentProps: {
+        participants: this.getParticipants(this.fixedParticipants)
+      }
+    });
+    modal.onWillDismiss().then(dataReturned => {
+      if(dataReturned.data) {
+        this.payBy = dataReturned.data;
+      }
+    });
+    return await modal.present().then(_ => {
+      // triggered when opening the modal
+      // console.log('Sending: ', this.fixedParticipants);
+    });
+  }
+
 
 }

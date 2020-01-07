@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Who pays?</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <ion-list>
+    <ion-radio-group
+      allow-empty-selection = "false"
+      name="radio-group"
+      (ionSelect)="radioGroupChange($event)"
+    >
+      <!-- <ion-list-header>
+        <ion-label>Name</ion-label>
+      </ion-list-header> -->
+      <ion-item *ngFor="let item of participants">
+        <ion-label>{{item.name}} - {{item.email}}</ion-label>
+        <ion-radio
+        slot="start"
+        name="{{item.name}}"
+        value= "{{item.email}}"
+        ></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+  <ion-button expand="block" (click)="sendSelected()" [disabled]="!selected">Select</ion-button>
+</ion-content>
