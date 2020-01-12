@@ -32,7 +32,7 @@
           </ion-card-header>
           <ion-card-content>
             <ion-item *ngFor="let guest of purchase.participants">
-              <ion-label>{{guest.name}} <span class="guestEmail">({{guest.email}})</span> - Owe:
+              <ion-label class="ion-text-wrap">{{guest.name}} <span class="guestEmail">({{guest.email}})</span> - Owe:
                 <span [ngClass]="{'negative': guest.owe < 0, 'positive' : guest.owe > 0}">$
                   {{guest.owe | number:'1.0-2'}}</span>
               </ion-label>
