@@ -13,9 +13,7 @@
   <ion-card *ngFor="let purchase of purchases">
     <ion-item>
       <ion-icon name="basket" slot="start"></ion-icon>
-      <ion-label (click)="purchase.showDescription = !purchase.showDescription">{{purchase.description}}</ion-label>
-      <!-- <ion-item *ngIf="showDescription" >
-      </ion-item> -->
+      <ion-label (click)="showDescription(purchase)">{{purchase.description}}</ion-label>
     </ion-item>
     <div *ngIf="purchase.showDescription">
         <ion-card id="capture">

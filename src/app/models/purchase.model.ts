@@ -3,5 +3,6 @@ export class Purchase{
     date: string;
     participants: any[];
     description: string;
-    spent: number
+    spent: number;
+    showDescription?: boolean
 }

@@ -13,8 +13,7 @@ import html2canvas from 'html2canvas';
 export class PurchasesPage implements OnInit {
 
   public groupData: any;
-  public purchases: Purchase;
-  public showDescription: boolean = false;
+  public purchases: Purchase[];
 
   constructor(
     private route: ActivatedRoute,
@@ -64,6 +63,13 @@ export class PurchasesPage implements OnInit {
           console.error("shareViaWhatsApp: failed");
         });
     });
+  }
+
+  showDescription(item) {
+    this.purchases.forEach(elem =>{
+      elem.showDescription = false;
+    })
+    item.showDescription = !item.showDescription;
   }
 
 }
