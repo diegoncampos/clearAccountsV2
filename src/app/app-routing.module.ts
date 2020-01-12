@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'new-group', loadChildren: './pages/new-group/new-group.module#NewGroupPageModule' },
   { path: 'purchases', loadChildren: './pages/purchases/purchases.module#PurchasesPageModule' },
   { path: 'new-purchase', loadChildren: './pages/new-purchase/new-purchase.module#NewPurchasePageModule' },
-  { path: 'select-from-list', loadChildren: './pages/modals/select-from-list/select-from-list.module#SelectFromListPageModule' }
+  // { path: 'select-from-list', loadChildren: './pages/modals/select-from-list/select-from-list.module#SelectFromListPageModule' }
 ];
 
 @NgModule({

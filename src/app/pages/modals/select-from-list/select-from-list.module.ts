@@ -5,12 +5,11 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SelectFromListPage } from './select-from-list.page';
+// import { SelectFromListPage } from './select-from-list.page';
 
 const routes: Routes = [
   {
-    path: '',
-    component: SelectFromListPage
+    path: ''
   }
 ];
 
@@ -21,6 +20,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [SelectFromListPage]
+  declarations: []
 })
 export class SelectFromListPageModule {}
