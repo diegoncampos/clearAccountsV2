@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar color="primary" [appHideFab]="scrollArea" [fab]="fab">
     <ion-title>{{user.userName}}'s Goups</ion-title>
     <ion-buttons slot="start">
         <ion-menu-button autoHide="false"></ion-menu-button>
@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content #scrollArea scrollEvents="true">
     <ion-img class="icon" src="assets/png-grupo-8.png"></ion-img>
     <ion-card *ngFor="let group of user.groups">
       <ion-item>
@@ -17,7 +17,7 @@
     </ion-card>
     <ion-label class="longPress">Long press to edit group.</ion-label>
 
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed" #fab>
       <ion-fab-button>
         <ion-icon name="add" routerLink="/new-group"></ion-icon>
       </ion-fab-button>

@@ -16,7 +16,8 @@ import { SocialSharing} from '@ionic-native/social-sharing/ngx';
 
 import { SelectFromListPage } from './pages/modals/select-from-list/select-from-list.page'
 
-import { environment } from '../environments/environment'
+import { environment } from '../environments/environment';
+
 @NgModule({
   declarations: [AppComponent, SelectFromListPage],
   entryComponents: [SelectFromListPage],
