@@ -12,8 +12,9 @@ export class PurchaseService {
     return this.afs.collection('purchases').add(purchase);
   }
 
+  //idField add the collection id to response
   getPurchasesByGroupId(groupId: string) {
-    const purchaseCollection = this.afs.collection<any>('purchases', ref => ref.where('groupId', '==', groupId)).valueChanges();
+    const purchaseCollection = this.afs.collection<any>('purchases', ref => ref.where('groupId', '==', groupId)).valueChanges({idField: 'purchaseId'});
     return purchaseCollection;
   }
 

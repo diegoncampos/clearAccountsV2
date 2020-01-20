@@ -4,5 +4,6 @@ export class Purchase{
     participants: any[];
     description: string;
     spent: number;
-    showDescription?: boolean
+    showDescription?: boolean;
+    purchaseId?: string
 }

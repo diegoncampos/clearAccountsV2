@@ -4,6 +4,8 @@ import { PurchaseService } from '../../services/purchase.service'
 import { Purchase } from '../../models/purchase.model';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import html2canvas from 'html2canvas';
+import { LocalStorageService } from '../../services/local-storage.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-purchases',
@@ -14,18 +16,24 @@ export class PurchasesPage implements OnInit {
 
   public groupData: any;
   public purchases: Purchase[];
+  private userInfo: any;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private purchaseService: PurchaseService,
-    private socialSharing: SocialSharing
+    private socialSharing: SocialSharing,
+    private localStorageService: LocalStorageService,
+    private alertController: AlertController
     ) {
       this.route.queryParams.subscribe(params => {
         if (params && params.special) {
           this.groupData = JSON.parse(params.special);
         }
       });
+      this.localStorageService.getItem("userInfo").then(userInfo => {
+        this.userInfo = userInfo;
+      })
     }
 
   ngOnInit() {
@@ -67,9 +75,40 @@ export class PurchasesPage implements OnInit {
 
   showDescription(item) {
     this.purchases.forEach(elem =>{
-      elem.showDescription = false;
+      if(item !== elem){
+        elem.showDescription = false;
+      }
     })
     item.showDescription = !item.showDescription;
+  }
+
+  payPurchase(purchaseInfo: any) {
+    // console.log("Pago!", this.userInfo, purchaseInfo)
+    this.purchases.forEach(purchase =>{
+      if(purchaseInfo.purchaseId === purchase.purchaseId){
+        // console.log("Econstre", elem)
+        purchase.participants.forEach(async participant =>{
+          if(participant.email === this.userInfo.userEmail) {
+            const alert = await this.alertController.create({
+              header: 'Pay purchase?',
+              buttons: [
+                {
+                  text: 'Cancel',
+                  role: 'cancel'
+                }, {
+                  text: 'Pay',
+                  handler: () => {
+                    participant.paid = true;
+                    console.log("Encontrado", participant,purchase)
+                  }
+                }
+              ]
+            });
+            await alert.present();
+          }
+        })
+      }
+    })
   }
 
 }
