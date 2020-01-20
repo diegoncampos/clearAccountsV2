@@ -4,3 +4,10 @@
     position: absolute;
     text-align: center;
 }
+.headerDiv {
+    background-image: url("../../../assets/groupBackground.png");
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
+    height: 30vh;
+}

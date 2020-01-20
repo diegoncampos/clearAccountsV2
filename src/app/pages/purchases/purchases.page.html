@@ -8,8 +8,11 @@
 </ion-header>
 
 <ion-content #scrollArea scrollEvents="true">
-  <ion-img class="trolly" src="assets/img_trolly.png"></ion-img>
-
+  <!-- <ion-img class="trolly" src="assets/img_trolly.png"></ion-img> -->
+  <div class="headerDiv">
+    <ion-label id="owe">Owe: ${{owe | number:'1.0-2'}}</ion-label>
+    <ion-label id="credit">Credit: ${{credit | number:'1.0-2'}}</ion-label>
+  </div>
   <ion-card *ngFor="let purchase of purchases">
     <ion-item>
       <ion-icon name="basket" slot="start"></ion-icon>

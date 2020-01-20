@@ -17,6 +17,8 @@ export class PurchasesPage implements OnInit {
   public groupData: any;
   public purchases: Purchase[];
   private userInfo: any;
+  public owe: number;
+  public credit: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -56,6 +58,7 @@ export class PurchasesPage implements OnInit {
     this.purchaseService.getPurchasesByGroupId(this.groupData.id).subscribe((res: any) => {
       if (res) {
         this.purchases = res;
+        this.getOweCredit();
       }
     });
   }
@@ -82,11 +85,27 @@ export class PurchasesPage implements OnInit {
     item.showDescription = !item.showDescription;
   }
 
+  getOweCredit() {
+    this.owe = 0;
+    this.credit = 0;
+    this.purchases.forEach(purchase => {
+      purchase.participants.forEach( participant => {
+        if (participant.email === this.userInfo.userEmail && !participant.paid) {
+          // console.log(participant.name, participant.owe)
+          if (participant.owe < 0){
+            this.owe = this.owe + participant.owe;
+          }
+          else if (participant.owe > 0) {
+            this.credit = this.credit + participant.owe;
+          }
+        }
+      })
+    })
+  }
+
   payPurchase(purchaseInfo: any) {
-    // console.log("Pago!", this.userInfo, purchaseInfo)
     this.purchases.forEach(purchase =>{
       if(purchaseInfo.purchaseId === purchase.purchaseId){
-        // console.log("Econstre", elem)
         purchase.participants.forEach(async participant =>{
           if(participant.email === this.userInfo.userEmail) {
             const alert = await this.alertController.create({
@@ -99,7 +118,7 @@ export class PurchasesPage implements OnInit {
                   text: 'Pay',
                   handler: () => {
                     participant.paid = true;
-                    console.log("Encontrado", participant,purchase)
+                    this.getOweCredit();
                   }
                 }
               ]

@@ -33,3 +33,26 @@
     color: green;
     padding-left: 5px;
 }
+
+.headerDiv {
+    background-image: url("../../../assets/purchaseHeaderImg.jpg");
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
+    height: 30vh;
+    text-align: right;
+    #owe {
+        // padding-left: 10px;
+        color: yellow;
+        padding-right: 30px;
+        display: block;
+        padding-top: 100px;
+        font-weight: bold;
+    }
+    #credit {
+        color: yellow;
+        display: block;
+        padding-right: 30px;
+        font-weight: bold;
+    }
+}
