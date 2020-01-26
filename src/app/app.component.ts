@@ -24,7 +24,7 @@ export class AppComponent {
       icon: 'list'
     },
     {
-      title: 'My Debts',
+      title: 'Pay My Debts',
       url: '/debts',
       icon: 'sad'
     },

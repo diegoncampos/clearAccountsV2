@@ -85,23 +85,24 @@ export class DebtsPage implements OnInit {
     //   }
     // })
 
-    console.log("purchaseId", purchaseInfo.purchaseId)
-    // const alert = await this.alertController.create({
-    //             header: 'Pay purchase?',
-    //             buttons: [
-    //               {
-    //                 text: 'Cancel',
-    //                 role: 'cancel'
-    //               }, {
-    //                 text: 'Pay',
-    //                 handler: () => {
-    //                   participant.paid = true;
-    //                   // this.getOweCredit();
-    //                   console.log("Pago", participant)
-    //                 }
-    //               }
-    //             ]
-    //           });
+    console.log("purchaseId", purchaseInfo)
+    const alert = await this.alertController.create({
+      header: 'Pay ' + purchaseInfo.description + '?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        }, {
+          text: 'Pay',
+          handler: () => {
+            purchaseInfo.paid = true;
+            // this.getOweCredit();
+            console.log("Pago", purchaseInfo)
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
 }
