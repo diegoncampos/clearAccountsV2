@@ -1,5 +1,5 @@
 {
-  "appId": "io.ionic.starter",
+  "appId": "com.clearAccountV2.app",
   "appName": "CAV2",
   "bundledWebRuntime": false,
   "npmClient": "npm",

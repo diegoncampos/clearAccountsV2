@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "311577287400",
+    "firebase_url": "https://clearaccountsv2.firebaseio.com",
+    "project_id": "clearaccountsv2",
+    "storage_bucket": "clearaccountsv2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:311577287400:android:9e90cda011fdcfe6cf875d",
+        "android_client_info": {
+          "package_name": "com.clearAccountV2.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "311577287400-tc297qum117a3hlljpb5j8q7aj05m2rr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-ysLznQ727w2zsfZAmei4evpE0kKI7hw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "311577287400-tc297qum117a3hlljpb5j8q7aj05m2rr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:311577287400:android:bd790383a446158fcf875d",
+        "android_client_info": {
+          "package_name": "com.prototypear.clearaccounts"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "311577287400-tc297qum117a3hlljpb5j8q7aj05m2rr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-ysLznQ727w2zsfZAmei4evpE0kKI7hw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "311577287400-tc297qum117a3hlljpb5j8q7aj05m2rr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

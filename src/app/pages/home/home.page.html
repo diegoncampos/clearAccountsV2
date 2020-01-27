@@ -9,7 +9,9 @@
 
 <ion-content #scrollArea scrollEvents="true">
     <!-- <ion-img class="icon" src="assets/png-grupo-8.png"></ion-img> -->
-    <div class="headerDiv"></div>
+    <div class="headerDiv">
+      <!-- Token: {{token}} -->
+    </div>
     <ion-card *ngFor="let group of user.groups">
       <ion-item>
         <ion-icon name="people" slot="start"></ion-icon>
