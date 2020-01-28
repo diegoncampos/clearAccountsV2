@@ -37,7 +37,7 @@ export class UserService {
 
   getUserByEmail(email: string) {
     const usersCollection = this.afs.collection<any>('users', ref => ref.where('userEmail', '==', email));
-    return usersCollection.snapshotChanges();
+    return usersCollection.valueChanges({idField: 'userId'});
   }
 
 

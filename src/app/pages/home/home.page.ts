@@ -12,7 +12,7 @@ import { LocalStorageService } from '../../services/local-storage.service';
 })
 export class HomePage implements OnInit {
 
-  public user: any = {userName: "", userEmail: "", groups: []};
+  public user: any = {userName: "", userEmail: "", groups: [], userId: ""};
   constructor(
     public afAuth:AngularFireAuth,
     private userService: UserService,
@@ -36,6 +36,7 @@ export class HomePage implements OnInit {
       if (user) {
         this.userService.getUser(user.uid).subscribe((res: any) => {
           this.user.userName = res.payload.data().userName;
+          this.user.userId = user.uid;
           this.groupService.getGroupsByEmail(this.user.userName, this.user.userEmail).subscribe(res => {
             res.docs.forEach(doc => {
               let group = doc.data();

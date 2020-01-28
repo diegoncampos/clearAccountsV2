@@ -5,6 +5,7 @@ import { GroupService } from '../../services/group.service'
 import { ToastController } from '@ionic/angular';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { NotificationsService } from '../../services/notifications.service';
+import { read } from 'fs';
 
 @Component({
   selector: 'app-new-group',
@@ -33,7 +34,6 @@ export class NewGroupPage implements OnInit {
           this.title = "Edit Group '" + this.editGroup.name + "'";
           this.groupName = this.editGroup.name;
           this.friends = this.editGroup.participants;
-          console.log("Traigo: ", this.editGroup)
         }
       });
     }
@@ -51,7 +51,7 @@ export class NewGroupPage implements OnInit {
         this.userService.getUser(user.uid).subscribe((res: any) => {
           myUser.userName = res.payload.data().userName;
           myUser.userEmail = user.email;
-          this.friends.push({ email: myUser.userEmail, name: myUser.userName });
+          this.friends.push({ email: myUser.userEmail, name: myUser.userName});
         });
       }
     });
@@ -60,13 +60,12 @@ export class NewGroupPage implements OnInit {
   addFriend(email) {
     if (email != "") {
 
-      this.userService.getUserByEmail(email).subscribe(snap => {
-        if (snap.length === 0) {
+      this.userService.getUserByEmail(email).subscribe((res: any) => {
+        if (res.length === 0) {
             console.log('user does not exist');
             this.presentToast("User does not exist");
         } else {
-          console.log('User logged in', snap[0].payload.doc.data());
-          this.friends.push({ email: email, name:  snap[0].payload.doc.data().userName});
+          this.friends.push({ email: email, name:  res[0].userName, userId: res[0].userId});
           this.email = "";
         }
     });
