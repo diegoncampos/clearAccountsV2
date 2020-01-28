@@ -7,22 +7,27 @@ import {
 import { LocalStorageService } from './local-storage.service';
 const { PushNotifications, Modals } = Plugins;
 import { Platform } from '@ionic/angular';
+import { DeviceService } from '../services/device.service';
+import { NotificationsService } from '../services/notifications.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FcmNotificationService {
 
+  private userInfo: any;
+
   constructor(
     private localStorageService: LocalStorageService,
-    private platform: Platform
+    private platform: Platform,
+    private deviceService: DeviceService,
+    private notificationsService: NotificationsService
   ) { }
 
   initializefcm() {
-    // this.getUsersGroups();
     console.log('Initializing HomePage');
     this.localStorageService.getItem("userInfo").then(res => {
-      console.log("User Info:", res)
+      this.userInfo = res;
     })
 
     // This if is not working, seems like a ionic issue
@@ -36,13 +41,14 @@ export class FcmNotificationService {
           // alert('Push registration success, token: ' + token.value);
           // console.log('Push registration success, token: ' + token.value)
           // this.token = token.value;
+          this.verifyDeviceExist(token.value);
         }
       );
 
       // Some issue with our setup and push will not work
       PushNotifications.addListener('registrationError',
         (error: any) => {
-          alert('Error on registration: ' + JSON.stringify(error));
+          this.notificationsService.showMessage('Error on registration: ' + JSON.stringify(error));
           // this.token = JSON.stringify(error);
         }
       );
@@ -60,11 +66,25 @@ export class FcmNotificationService {
       // Method called when tapping on a notification
       PushNotifications.addListener('pushNotificationActionPerformed',
         (notification: PushNotificationActionPerformed) => {
-          alert('Push action performed: ' + JSON.stringify(notification));
+          this.notificationsService.showMessage('Push action performed: ' + JSON.stringify(notification));
         }
       );
     }
 
 
+  }
+
+  verifyDeviceExist(token: string){
+    this.deviceService.getDeviceByToken(token).subscribe(res => {
+      if(res.length === 0) {
+        this.deviceService.newDevice({userId: this.userInfo.userId, token: token}).then(res => {
+          console.log("New Device Saved");
+          this.notificationsService.showMessage("New Device Saved");
+        }, err => {
+          console.log("Error Saving Device");
+          this.notificationsService.showMessage("Error Saving Device")
+         });
+      }
+    })
   }
 }

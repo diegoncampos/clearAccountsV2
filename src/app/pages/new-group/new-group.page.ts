@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service'
 import { GroupService } from '../../services/group.service'
-import { ToastController } from '@ionic/angular';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { NotificationsService } from '../../services/notifications.service';
-import { read } from 'fs';
 
 @Component({
   selector: 'app-new-group',
@@ -22,7 +20,6 @@ export class NewGroupPage implements OnInit {
   constructor(
     private router: Router,
     private userService: UserService,
-    public toastController: ToastController,
     public groupService: GroupService,
     public afAuth:AngularFireAuth,
     private notificationsService: NotificationsService,
@@ -63,21 +60,13 @@ export class NewGroupPage implements OnInit {
       this.userService.getUserByEmail(email).subscribe((res: any) => {
         if (res.length === 0) {
             console.log('user does not exist');
-            this.presentToast("User does not exist");
+            this.notificationsService.showMessage("User does not exist");
         } else {
-          this.friends.push({ email: email, name:  res[0].userName, userId: res[0].userId});
+          this.friends.push({ email: email, name:  res[0].userName});
           this.email = "";
         }
     });
     }
-  }
-
-  async presentToast(message) {
-    const toast = await this.toastController.create({
-      message: message,
-      duration: 2000
-    });
-    toast.present();
   }
 
   deleteFriend(index) {
