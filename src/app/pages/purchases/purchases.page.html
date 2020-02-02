@@ -41,7 +41,7 @@
               </ion-label>
             </ion-item>
             <ion-icon class="share" name="share" color="primary" (click)="shareList()"></ion-icon>
-            <ion-icon class="share" name="checkmark-circle-outline" color="primary" (click)="payPurchase(purchase)"></ion-icon>
+            <ion-icon *ngIf="canPay(purchase)"  class="share" name="checkmark-circle-outline" color="primary" (click)="payPurchase(purchase)"></ion-icon>
             </ion-card-content>
             </ion-card>
       </div>

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { DebtsService } from '../../services/debts.service';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { AlertController } from '@ionic/angular';
+import { PurchaseService } from 'src/app/services/purchase.service';
 
 @Component({
   selector: 'app-debts',
@@ -16,15 +17,20 @@ export class DebtsPage implements OnInit {
   constructor(
     private debtsService: DebtsService,
     private localStorageService: LocalStorageService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private purchaseService: PurchaseService
     ) { }
 
   ngOnInit() {
     this.localStorageService.getItem("userInfo").then(userInfo => {
       this.userInfo = userInfo;
-      this.debtsService.getDebtsByEmail({ email: this.userInfo.userEmail, name: this.userInfo.userName }).subscribe(res => {
-        this.info = res;
-      })
+      this.updateInfo();
+    })
+  }
+
+  updateInfo() {
+    this.debtsService.getDebtsByEmail({ email: this.userInfo.userEmail, name: this.userInfo.userName }).subscribe(res => {
+      this.info = res;
     })
   }
 
@@ -59,33 +65,7 @@ export class DebtsPage implements OnInit {
   }
 
   async payPurchase(purchaseInfo: any) {
-    // this.userInfo.purchases.forEach(purchase =>{
-    //   if(purchaseInfo.purchaseId === purchase.purchaseId){
-    //     purchase.participants.forEach(async participant =>{
-    //       if(participant.email === this.userInfo.userEmail) {
-    //         const alert = await this.alertController.create({
-    //           header: 'Pay purchase?',
-    //           buttons: [
-    //             {
-    //               text: 'Cancel',
-    //               role: 'cancel'
-    //             }, {
-    //               text: 'Pay',
-    //               handler: () => {
-    //                 participant.paid = true;
-    //                 // this.getOweCredit();
-    //                 console.log("Pago", participant)
-    //               }
-    //             }
-    //           ]
-    //         });
-    //         await alert.present();
-    //       }
-    //     })
-    //   }
-    // })
-
-    console.log("purchaseId", purchaseInfo)
+    // console.log("purchaseId", purchaseInfo)
     const alert = await this.alertController.create({
       header: 'Pay ' + purchaseInfo.description + '?',
       buttons: [
@@ -95,14 +75,22 @@ export class DebtsPage implements OnInit {
         }, {
           text: 'Pay',
           handler: () => {
-            purchaseInfo.paid = true;
-            // this.getOweCredit();
-            console.log("Pago", purchaseInfo)
+            let participant = purchaseInfo.participants.find(x => x.email === this.userInfo.userEmail)
+            participant.paid = true;
+            this.purchaseService.updateUserPaid(purchaseInfo.purchaseId, purchaseInfo.participants).then(res => {
+              console.log("Pay updated")
+              this.updateInfo();
+            }) .catch(error => console.log(error))
           }
         }
       ]
     });
     await alert.present();
+  }
+
+  canPay(purchaseInfo: any) {
+    let participant = purchaseInfo.participants.find(x => x.email === this.userInfo.userEmail)
+    return !participant.paid && participant.owe < 0 ? true : false;
   }
 
 }

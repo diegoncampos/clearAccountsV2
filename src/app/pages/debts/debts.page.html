@@ -18,7 +18,7 @@
         <div *ngFor="let purchase of groups.purchases">
           <ion-item *ngIf="findOwe(purchase) !== 0 && !purchase.paid">
             {{purchase.description}} - Owe: {{findOwe(purchase) | number:'1.0-2'}}
-            <ion-icon class="pay" name="checkmark-circle-outline" color="primary" (click)="payPurchase(purchase)" slot="end"></ion-icon>
+            <ion-icon *ngIf="canPay(purchase)" class="pay" name="checkmark-circle-outline" color="primary" (click)="payPurchase(purchase)" slot="end"></ion-icon>
           </ion-item>
         </div>
       </div>

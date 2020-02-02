@@ -118,6 +118,9 @@ export class PurchasesPage implements OnInit {
                   text: 'Pay',
                   handler: () => {
                     participant.paid = true;
+                    this.purchaseService.updateUserPaid(purchaseInfo.purchaseId, purchaseInfo.participants).then(res => {
+                      console.log("se actualizo los participants")
+                    }) .catch(error => console.log(error))
                     this.getOweCredit();
                   }
                 }
@@ -130,4 +133,8 @@ export class PurchasesPage implements OnInit {
     })
   }
 
+  canPay(purchaseInfo: any) {
+    let participant = purchaseInfo.participants.find(x => x.email === this.userInfo.userEmail)
+    return participant && !participant.paid && participant.owe < 0 ? true : false;
+  }
 }

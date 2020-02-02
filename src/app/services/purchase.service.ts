@@ -18,4 +18,9 @@ export class PurchaseService {
     return purchaseCollection;
   }
 
+  updateUserPaid(purchaseId: string, _participants: any[]){
+    const purchaseCollection = this.afs.collection<any>('purchases').doc(purchaseId).update({participants: _participants});
+    return purchaseCollection;
+  }
+
 }
