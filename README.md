@@ -8,7 +8,7 @@
 
 > An ionic 5 / Capacitor project
 
-### 🏠 [Homepage](staffProyect)
+### 🏠 [Homepage](https://github.com/diegoncampos/clearAccountsV2yect)
 
 ## Install
 
@@ -19,7 +19,7 @@ npm install
 ## Usage
 
 ```sh
-ionic serve
+npm run start
 ```
 
 ## Run tests
@@ -33,8 +33,8 @@ npm run test
 👤 **Diego Campos**
 
 * Website: https://diegocampos.me/
-* Github: [@diego.n.campos](https://github.com/diegoncampos)
-* LinkedIn: [@http:\/\/www.linkedin.com\/in\/diegonahuelcampos](http://www.linkedin.com/in/diegonahuelcampos)
+* Github: [@diegoncampos](https://github.com/diegoncampos)
+* LinkedIn: [diegonahuelcampos](http://www.linkedin.com/in/diegonahuelcampos)
 
 ## Show your support
 

@@ -5,7 +5,7 @@
   "homepage": "https://diegocampos.me/",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ionic serve",
     "build": "ionic build && npx cap copy android && npx cap open android",
     "buildProd": "ionic build --prod && npx cap copy android && npx cap open android",
     "update": "ionic build && npx cap copy android",
