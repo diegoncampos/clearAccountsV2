@@ -22,7 +22,7 @@ export class GroupService {
 
   getGroupsByEmail(name: string, email: string) {
     const usersCollection = this.afs.collection<any>('groups', ref => ref.where('participants', 'array-contains', {name : name, email : email}));
-    return usersCollection.get();
+    return usersCollection.valueChanges({idField: 'groupId'});
   }
 
 }

@@ -26,11 +26,10 @@ export class UserService {
   }
 
   getUser(id) {
-    let user = this.afs.collection('users').doc(id).snapshotChanges();
-    user.subscribe( (userInfo: any) => {
-      this.userInfo = userInfo.payload.data();
+    let user = this.afs.collection('users').doc(id).valueChanges();
+    user.subscribe((userInfo: any) => {
+      this.userInfo = userInfo;
       this.observableUserInfo.next(this.userInfo);
-      // console.log("USERRRR:", userInfo.payload.data().userName)
     });
     return user;
   }

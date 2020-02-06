@@ -47,7 +47,7 @@ export class AuthService {
   async onLogout() {
     try {
       return await this.afAuth.auth.signOut().then(() => {
-        this.router.navigateByUrl('/login');
+        // this.router.navigateByUrl('/login');
       });
     }
     catch (error){

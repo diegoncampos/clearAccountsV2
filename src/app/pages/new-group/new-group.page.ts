@@ -4,6 +4,7 @@ import { UserService } from '../../services/user.service'
 import { GroupService } from '../../services/group.service'
 import { AngularFireAuth } from '@angular/fire/auth';
 import { NotificationsService } from '../../services/notifications.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-new-group',
@@ -24,6 +25,7 @@ export class NewGroupPage implements OnInit {
     public afAuth:AngularFireAuth,
     private notificationsService: NotificationsService,
     private route: ActivatedRoute,
+    private localStorageService: LocalStorageService
     ) {
       this.route.queryParams.subscribe(params => {
         if (params && params.group) {
@@ -43,15 +45,13 @@ export class NewGroupPage implements OnInit {
 
   addSelfUser() {
     let myUser: any = [];
-    this.afAuth.authState.subscribe(user => {
-      if (user) {
-        this.userService.getUser(user.uid).subscribe((res: any) => {
-          myUser.userName = res.payload.data().userName;
-          myUser.userEmail = user.email;
-          this.friends.push({ email: myUser.userEmail, name: myUser.userName});
-        });
+    this.localStorageService.getObject("userInfo").then(res => {
+      if (res) {
+        myUser.userName = res.userName;
+        myUser.userEmail = res.userEmail;
+        this.friends.push({ email: myUser.userEmail, name: myUser.userName });
       }
-    });
+    })
   }
 
   addFriend(email) {
@@ -73,19 +73,25 @@ export class NewGroupPage implements OnInit {
     this.friends.splice(index, 1);
   }
 
-  save(){
-    if(this.editGroup){
-      this.groupService.editGoup(this.editGroup.id, { name: this.groupName, participants: this.friends }).then(res => {
-        this.notificationsService.showMessage("Group Updated!")
-      }, err => { this.notificationsService.showMessage("Fail updating group") });
-      this.router.navigate(['/home']);
+  save() {
+    if (this.friends.length <= 1) {
+      this.notificationsService.showMessage("You need add some friends to the group!");
     }
     else {
-      this.groupService.newGoup({ name: this.groupName, participants: this.friends }).then(res => {
-        this.notificationsService.showMessage("Group saved!")
-      }, err => { this.notificationsService.showMessage("Fail saving group") });
-      this.router.navigate(['/home']);
+      if (this.editGroup) {
+        this.groupService.editGoup(this.editGroup.id, { name: this.groupName, participants: this.friends }).then(res => {
+          this.notificationsService.showMessage("Group Updated!")
+        }, err => { this.notificationsService.showMessage("Fail updating group") });
+        this.router.navigate(['/home']);
+      }
+      else {
+        this.groupService.newGoup({ name: this.groupName, participants: this.friends }).then(res => {
+          this.notificationsService.showMessage("Group saved!")
+        }, err => { this.notificationsService.showMessage("Fail saving group") });
+        this.router.navigate(['/home']);
+      }
     }
+
   }
 
 }

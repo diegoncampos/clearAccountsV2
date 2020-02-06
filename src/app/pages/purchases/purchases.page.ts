@@ -55,7 +55,7 @@ export class PurchasesPage implements OnInit {
   }
 
   getGroupPurchases() {
-    this.purchaseService.getPurchasesByGroupId(this.groupData.id).subscribe((res: any) => {
+    this.purchaseService.getPurchasesByGroupId(this.groupData.groupId).subscribe((res: any) => {
       if (res) {
         this.purchases = res;
         this.getOweCredit();

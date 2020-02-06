@@ -37,7 +37,6 @@ export class NewPurchasePage implements OnInit {
       if (params && params.special) {
         this.groupData = JSON.parse(params.special);
         this.fixedParticipants = this.groupData.participants;
-        console.log("GroupData: ", this.groupData)
         // Is checked true for all participants
         this.fixedParticipants.forEach(element => {
           element.isChecked = true;
@@ -99,6 +98,7 @@ export class NewPurchasePage implements OnInit {
     if(guest.value !== "") {
       this.guests.push(guest.value);
       guest.value = "";
+      this.guestElement.setFocus();
     }
     // Set focus on guest input if it's empty
     else {

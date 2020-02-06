@@ -28,27 +28,36 @@ export class HomePage implements OnInit {
 
   ionViewWillEnter() {
     this.user.groups = [];
-    this.getUsersGroups();
+    this.localStorageService.getObject("userInfo").then(res => {
+      if (res) {
+        this.user.userEmail = res.userEmail;
+        this.getUsersGroups(res.userId);
+      }
+      else {
+        this.getUser();
+      }
+    });
   }
 
-  getUsersGroups() {
+  getUser() {
     this.afAuth.authState.subscribe(user =>{
       if (user) {
-        this.userService.getUser(user.uid).subscribe((res: any) => {
-          this.user.userName = res.payload.data().userName;
-          this.user.userId = user.uid;
-          this.groupService.getGroupsByEmail(this.user.userName, this.user.userEmail).subscribe(res => {
-            res.docs.forEach(doc => {
-              let group = doc.data();
-              group.id = doc.id;
-              this.user.groups.push(group)
-            })
-            this.localStorageService.setObject("userInfo", this.user)
-          })
-        });
-
         this.user.userEmail = user.email;
+        this.getUsersGroups(user.uid);
       }
+    }, error => {
+      console.log("ERROR:", error);
+    });
+  }
+
+  getUsersGroups(userId: string) {
+    this.userService.getUser(userId).subscribe((res: any) => {
+      this.user.userName = res.userName;
+      this.user.userId = userId;
+      this.groupService.getGroupsByEmail(this.user.userName, this.user.userEmail).subscribe(res => {
+        this.user.groups = res;
+        this.localStorageService.setObject("userInfo", this.user)
+      })
     });
   }
 

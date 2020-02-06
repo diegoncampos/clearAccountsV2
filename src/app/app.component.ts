@@ -10,6 +10,7 @@ import { UserService } from './services/user.service';
 import { AuthGuard } from '../app/guards/auth.guard';
 
 import { FcmNotificationService } from '../app/services/fcm-notification.service'
+import { LocalStorageService } from './services/local-storage.service';
 
 @Component({
   selector: 'app-root',
@@ -46,7 +47,8 @@ export class AppComponent implements OnInit {
     private userService: UserService,
     private alertController: AlertController,
     private authGuard: AuthGuard,
-    private fmc: FcmNotificationService
+    private fmc: FcmNotificationService,
+    private localStorageService: LocalStorageService
   ) {
     this.initializeApp();
     this.userService.observableUserInfo.subscribe((info: any) => {
@@ -58,7 +60,8 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.fmc.initializefcm();
+    //Push notification, need be checked (doesn't work in web, just in andoid)
+    // this.fmc.initializefcm();
   }
 
   backButtonAction() {
@@ -101,6 +104,7 @@ export class AppComponent implements OnInit {
     this.authService.onLogout().then(resp => {
       console.log("Logout succesfully!");
       this.authGuard.logOut();
+      this.localStorageService.clear();
       this.router.navigateByUrl('/login');
     });
   }

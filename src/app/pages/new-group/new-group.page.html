@@ -15,7 +15,8 @@
   <ion-item>
     <ion-label position="floating">Friend Email</ion-label>
     <ion-input [(ngModel)]="email"></ion-input>
-    <ion-icon name="person-add" slot="end" (click)="addFriend(email)"></ion-icon>
+    <!-- <ion-icon name="person-add" slot="end" (click)="addFriend(email)"></ion-icon> -->
+    <ion-button slot="end" color="primary" class="addButton" (click)="addFriend(email)">Add</ion-button>
   </ion-item>
   <ion-card *ngFor="let friend of friends; let i = index">
     <ion-item>
