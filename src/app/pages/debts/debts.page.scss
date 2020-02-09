@@ -1,6 +1,15 @@
 .pay {
     margin: 8px;
-    width: 30px;
+    width: 40px;
     height: 30px;
     float: right;
+}
+.negative {
+    color: red;
+}
+.positive {
+    color: green;
+}
+.paid {
+    color: grey;
 }

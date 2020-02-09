@@ -36,12 +36,13 @@
               <ion-label class="ion-text-wrap">
                 <ion-icon *ngIf="guest.paid" name="checkmark-circle" class="paidCheck"></ion-icon>
                 {{guest.name}} <span class="guestEmail">({{guest.email}})</span> - Owe:
-                <span [ngClass]="{'negative': guest.owe < 0, 'positive' : guest.owe > 0}">$
+                <span [ngClass]="{'negative': guest.owe < 0, 'positive' : guest.owe > 0, 'paid' : guest.paid}">$
                   {{guest.owe | number:'1.0-2'}}</span>
               </ion-label>
             </ion-item>
             <ion-icon class="share" name="share" color="primary" (click)="shareList()"></ion-icon>
-            <ion-icon *ngIf="canPay(purchase)"  class="share" name="checkmark-circle-outline" color="primary" (click)="payPurchase(purchase)"></ion-icon>
+            <!-- <ion-icon *ngIf="canPay(purchase)"  class="share" name="checkmark-circle-outline" color="primary" (click)="payPurchase(purchase)"></ion-icon> -->
+            <ion-button slot="end" *ngIf="canPay(purchase)"  color="primary" class="pay" (click)="payPurchase(purchase)">Pay</ion-button>
             </ion-card-content>
             </ion-card>
       </div>
