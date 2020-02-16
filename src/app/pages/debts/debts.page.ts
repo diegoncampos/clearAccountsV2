@@ -12,7 +12,7 @@ import { PurchaseService } from 'src/app/services/purchase.service';
 })
 export class DebtsPage implements OnInit {
 
-  public info: any;
+  public info: any = null;
   public userInfo: any;
   constructor(
     private debtsService: DebtsService,
@@ -30,7 +30,9 @@ export class DebtsPage implements OnInit {
 
   updateInfo() {
     this.debtsService.getDebtsByEmail({ email: this.userInfo.userEmail, name: this.userInfo.userName }).subscribe(res => {
-      this.info = res;
+      if(res){
+        this.info = res;
+      }
     })
   }
 
@@ -64,8 +66,11 @@ export class DebtsPage implements OnInit {
     return ret;
   }
 
+  noDebtsMessage(info) {
+    return info && info.length > 0? false : true;
+  }
+
   async payPurchase(purchaseInfo: any) {
-    // console.log("purchaseId", purchaseInfo)
     const alert = await this.alertController.create({
       header: 'Pay ' + purchaseInfo.description + '?',
       buttons: [

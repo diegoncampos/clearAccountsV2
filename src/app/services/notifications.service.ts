@@ -11,7 +11,14 @@ export class NotificationsService {
   async showMessage(message: string, duration?: number) {
     const toast = await this.toastController.create({
       message: message,
-      duration: duration ? duration : 2000
+      duration: duration ? duration : 3000,
+      position: 'middle',
+      color: 'primary',
+      cssClass:"toastCustomStyle",
+      translucent: true,
+      showCloseButton: true,
+      closeButtonText: 'Ok',
+      animated: true
     });
     toast.present();
   }

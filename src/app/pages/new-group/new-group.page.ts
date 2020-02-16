@@ -79,7 +79,7 @@ export class NewGroupPage implements OnInit {
     }
     else {
       if (this.editGroup) {
-        this.groupService.editGoup(this.editGroup.id, { name: this.groupName, participants: this.friends }).then(res => {
+        this.groupService.editGoup(this.editGroup.groupId, { name: this.groupName, participants: this.friends }).then(res => {
           this.notificationsService.showMessage("Group Updated!")
         }, err => { this.notificationsService.showMessage("Fail updating group") });
         this.router.navigate(['/home']);
