@@ -54,18 +54,21 @@ export class NewGroupPage implements OnInit {
     })
   }
 
-  addFriend(email) {
+  // Save true will save group if you added just one valid friend
+  addFriend(email, save?) {
     if (email != "") {
-
       this.userService.getUserByEmail(email).subscribe((res: any) => {
         if (res.length === 0) {
-            console.log('user does not exist');
-            this.notificationsService.showMessage("User does not exist");
+          console.log('user does not exist');
+          this.notificationsService.showMessage("User does not exist");
         } else {
-          this.friends.push({ email: email, name:  res[0].userName});
+          this.friends.push({ email: email, name: res[0].userName });
           this.email = "";
+          if(save) {
+            this.save();
+          }
         }
-    });
+      });
     }
   }
 
@@ -73,25 +76,37 @@ export class NewGroupPage implements OnInit {
     this.friends.splice(index, 1);
   }
 
-  save() {
+  /**If you add just one friend, check if exist, add to list and save. If you don't have
+   * any friends in the list and the friend email label is empty show a notification.
+   * To save a group you should have at least one friend added
+   */
+  savePressed() {
     if (this.friends.length <= 1) {
-      this.notificationsService.showMessage("You need add some friends to the group!");
-    }
-    else {
-      if (this.editGroup) {
-        this.groupService.editGoup(this.editGroup.groupId, { name: this.groupName, participants: this.friends }).then(res => {
-          this.notificationsService.showMessage("Group Updated!")
-        }, err => { this.notificationsService.showMessage("Fail updating group") });
-        this.router.navigate(['/home']);
+      if (this.email !== "") {
+        this.addFriend(this.email, true);
       }
       else {
-        this.groupService.newGoup({ name: this.groupName, participants: this.friends }).then(res => {
-          this.notificationsService.showMessage("Group saved!")
-        }, err => { this.notificationsService.showMessage("Fail saving group") });
-        this.router.navigate(['/home']);
+        this.notificationsService.showMessage("You need add some friends to the group!");
       }
     }
+    else {
+      this.save();
+    }
+  }
 
+  save() {
+    if (this.editGroup) {
+      this.groupService.editGoup(this.editGroup.groupId, { name: this.groupName, participants: this.friends }).then(res => {
+        this.notificationsService.showMessage("Group Updated!")
+      }, err => { this.notificationsService.showMessage("Fail updating group") });
+      this.router.navigate(['/home']);
+    }
+    else {
+      this.groupService.newGoup({ name: this.groupName, participants: this.friends }).then(res => {
+        this.notificationsService.showMessage("Group saved!")
+      }, err => { this.notificationsService.showMessage("Fail saving group") });
+      this.router.navigate(['/home']);
+    }
   }
 
 }
