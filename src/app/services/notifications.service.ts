@@ -13,7 +13,7 @@ export class NotificationsService {
       message: message,
       duration: duration ? duration : 3000,
       position: 'middle',
-      color: 'primary',
+      // color: 'dark',
       cssClass:"toastCustomStyle",
       translucent: true,
       showCloseButton: true,

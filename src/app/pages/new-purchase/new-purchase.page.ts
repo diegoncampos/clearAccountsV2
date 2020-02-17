@@ -54,7 +54,7 @@ export class NewPurchasePage implements OnInit {
   save() {
     let participants = this.getParticipants(this.fixedParticipants);
     let purchase: Purchase = {
-      groupId: this.groupData.id,
+      groupId: this.groupData.groupId,
       date: new Date().toString(),
       participants: this.payDivider(participants),
       description: this.newPurchease.description,
