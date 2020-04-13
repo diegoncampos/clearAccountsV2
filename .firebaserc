@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "clearaccountsv2"
+    "default": "clearaccountsv2",
+    "prod": "clearaccountsv2-prod"
   }
 }

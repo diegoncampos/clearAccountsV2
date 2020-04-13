@@ -6,8 +6,8 @@ android {
         applicationId "com.clearAccountV2.app"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 104
-        versionName "104"
+        versionCode 105
+        versionName "105"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
