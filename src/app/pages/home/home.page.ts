@@ -18,6 +18,7 @@ export class HomePage implements OnInit {
   public totalDebt: number = 0;
   public totalCredit: number = 0;
   public debtsInfo: any;
+  public showSpinner: boolean = true;
 
   constructor(
     public afAuth:AngularFireAuth,
@@ -95,6 +96,7 @@ export class HomePage implements OnInit {
       // console.log("Respuesta", res)
       this.totalDebt = res.totalDebit;
       this.totalCredit = res.totalCredit;
+      this.showSpinner = false;
     })
   }
 
