@@ -31,7 +31,7 @@ export const getPurchasesByEmail = functions.https.onRequest((request, response)
         .then(
             (snapshot: any) => {
                 snapshot.forEach((pur:any) => {
-                    let participant =  pur.data().participants.find((data:any) => data.email === reqInfo.email);
+                    const participant =  pur.data().participants.find((data:any) => data.email === reqInfo.email);
                     if (participant && !participant.paid) {
                         // purchases = purchases.concat(pur.data());
                         if(participant.owe > 0) {
