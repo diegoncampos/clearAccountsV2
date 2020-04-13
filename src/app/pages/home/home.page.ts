@@ -4,6 +4,8 @@ import { UserService } from '../../services/user.service';
 import { GroupService } from '../../services/group.service';
 import { NavigationExtras, Router } from '@angular/router';
 import { LocalStorageService } from '../../services/local-storage.service';
+import { DebtsService } from '../../services/debts.service';
+import { PurchaseService } from 'src/app/services/purchase.service';
 
 @Component({
   selector: 'app-home',
@@ -13,17 +15,24 @@ import { LocalStorageService } from '../../services/local-storage.service';
 export class HomePage implements OnInit {
 
   public user: any = {userName: "", userEmail: "", groups: [], userId: ""};
+  public totalDebt: number = 0;
+  public totalCredit: number = 0;
+  public debtsInfo: any;
+
   constructor(
     public afAuth:AngularFireAuth,
     private userService: UserService,
     private groupService: GroupService,
     private router: Router,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private debtsService: DebtsService,
+    private purchaseService: PurchaseService
     ) {
   }
 
   ngOnInit() {
     // this.getUsersGroups();
+    // this.getDebts();
   }
 
   ionViewWillEnter() {
@@ -31,7 +40,9 @@ export class HomePage implements OnInit {
     this.localStorageService.getObject("userInfo").then(res => {
       if (res) {
         this.user.userEmail = res.userEmail;
+        this.user.userName = res.userName;
         this.getUsersGroups(res.userId);
+        this.getDebts();
       }
       else {
         this.getUser();
@@ -56,7 +67,7 @@ export class HomePage implements OnInit {
       this.user.userId = userId;
       this.groupService.getGroupsByEmail(this.user.userName, this.user.userEmail).subscribe(res => {
         this.user.groups = res;
-        this.localStorageService.setObject("userInfo", this.user)
+        this.localStorageService.setObject("userInfo", this.user);
       })
     });
   }
@@ -77,6 +88,14 @@ export class HomePage implements OnInit {
       }
     };
     this.router.navigate(['new-group'], navigationExtras);
+  }
+
+  getDebts() {
+    this.purchaseService.getPurchasesByEmail(this.user.userEmail).subscribe( (res:any) => {
+      // console.log("Respuesta", res)
+      this.totalDebt = res.totalDebit;
+      this.totalCredit = res.totalCredit;
+    })
   }
 
 }

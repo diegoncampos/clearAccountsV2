@@ -10,7 +10,19 @@
 <ion-content #scrollArea scrollEvents="true">
     <!-- <ion-img class="icon" src="assets/png-grupo-8.png"></ion-img> -->
     <div class="headerDiv">
-      <!-- Token: {{token}} -->
+      <ion-img class="profileImg" src="assets/profile_photo.png"></ion-img>
+      <ion-item class="headerInfo">
+        <ion-label>Groups</ion-label>
+        <ion-badge slot="end" color="primary">{{user.groups.length}}</ion-badge>
+      </ion-item>
+      <ion-item class="headerInfo">
+        <ion-label>Total you are owed</ion-label>
+        <ion-badge slot="end" color="primary">${{totalCredit}}</ion-badge>
+      </ion-item>
+      <ion-item class="headerInfo">
+        <ion-label>Total you owe</ion-label>
+        <ion-badge slot="end" color="primary">${{totalDebt}}</ion-badge>
+      </ion-item>
     </div>
     <ion-card *ngFor="let group of user.groups">
       <ion-item>

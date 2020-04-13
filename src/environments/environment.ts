@@ -13,6 +13,9 @@ export const environment = {
     messagingSenderId: "311577287400",
     appId: "1:311577287400:web:6a03afb639798061cf875d",
     measurementId: "G-WM3RN2X44G"
+  },
+  firebaseFunctions: {
+    getPurchasesByEmail: 'https://us-central1-clearaccountsv2.cloudfunctions.net/getPurchasesByEmail?email='
   }
 };
 

@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { HttpClient } from "@angular/common/http";
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PurchaseService {
 
-  constructor(private afs: AngularFirestore) { }
+  constructor(private afs: AngularFirestore, private http: HttpClient) { }
 
   newPurchase(purchase: any):any{
     return this.afs.collection('purchases').add(purchase);
@@ -21,6 +23,10 @@ export class PurchaseService {
   updateUserPaid(purchaseId: string, _participants: any[]){
     const purchaseCollection = this.afs.collection<any>('purchases').doc(purchaseId).update({participants: _participants});
     return purchaseCollection;
+  }
+
+  getPurchasesByEmail(_email: string) {
+    return this.http.get(environment.firebaseFunctions.getPurchasesByEmail + _email)
   }
 
 }

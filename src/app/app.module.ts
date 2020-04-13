@@ -18,6 +18,8 @@ import { SelectFromListPage } from './pages/modals/select-from-list/select-from-
 
 import { environment } from '../environments/environment';
 
+import { HttpClientModule, HttpClient } from  '@angular/common/http';
+
 @NgModule({
   declarations: [AppComponent, SelectFromListPage],
   entryComponents: [SelectFromListPage],
@@ -27,13 +29,15 @@ import { environment } from '../environments/environment';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    HttpClientModule
   ],
   providers: [
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    SocialSharing
+    SocialSharing,
+    HttpClient
   ],
   bootstrap: [AppComponent]
 })
