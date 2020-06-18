@@ -19,11 +19,11 @@
         </ion-item>
         <ion-item class="headerInfo">
           <ion-label>Total you are owed</ion-label>
-          <ion-badge slot="end" color="primary">${{totalCredit}}</ion-badge>
+          <ion-badge slot="end" color="primary">${{totalCredit | number:'1.0-2'}}</ion-badge>
         </ion-item>
         <ion-item class="headerInfo">
           <ion-label>Total you owe</ion-label>
-          <ion-badge slot="end" color="primary">${{totalDebt}}</ion-badge>
+          <ion-badge slot="end" color="primary">${{totalDebt | number:'1.0-2'}}</ion-badge>
         </ion-item>
       </div>
     </div>

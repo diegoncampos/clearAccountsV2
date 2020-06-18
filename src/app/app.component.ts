@@ -52,7 +52,7 @@ export class AppComponent implements OnInit {
   ) {
     this.initializeApp();
     this.userService.observableUserInfo.subscribe((info: any) => {
-      if(info){
+      if(info && info.userName && info.userEmail){
         this.userInfo = {name: info.userName, email: info.userEmail};
       }
     });
